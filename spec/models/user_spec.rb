@@ -3,6 +3,8 @@ require 'rails_helper'
 describe User do
   before {@user = FactoryGirl.build(:user)}
 
+  subject { @user }
+
   it "responds to email" do
     expect(@user).to respond_to(:email)
     expect(@user).to respond_to(:password)
@@ -51,6 +53,23 @@ describe User do
       expect(@user.auth_token).not_to eql existing_user.auth_token
     end
 
+  end
+
+  it { should have_many(:products)}
+
+  describe "#products association" do
+    before do
+      @user.save
+      3.times { FactoryGirl.create :product, user: @user}
+    end
+
+    it "destroys the associated products on self destruct" do
+      products = @user.products
+      @user.destroy
+      products.each do |product|
+        expect(Product.find(product)).to rise_error ActiveRecord::RecordNotFound
+      end
+    end
   end
 
 end
