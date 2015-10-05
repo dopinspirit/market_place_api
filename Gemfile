@@ -36,6 +36,7 @@ end
 group :development, :test do
   gem "factory_girl_rails"
   gem 'ffaker'
+  gem 'rspec-collection_matchers', '~> 1.1.2'
 end
 
 gem 'sabisu_rails', github: "IcaliaLabs/sabisu-rails"
