@@ -20,7 +20,7 @@ doc/
 *.swp
 *~
 .DS_Store
-
+Gemfile.lock
 
 .idea/
 Gemfile.lock
